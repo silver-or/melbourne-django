@@ -3,13 +3,13 @@ import random
 def main():
     while 1:
         menu = int(input('\n0. Exit\n'
-                         '1. 계산기\n'
-                         '2. BMI\n'
-                         '3. 성적표\n'
-                         '4. 자동 성적표\n'
-                         '5. 주사위\n'
-                         '6. 원하는 범위 내 난수 생성\n'
-                         '7. 랜덤 이름 추출\n'
+                         '1. calculator\n'
+                         '2. bmi\n'
+                         '3. grade\n'
+                         '4. gradeAuto\n'
+                         '5. dice\n'
+                         '6. randomGenerator\n'
+                         '7. randomChoice\n'
                          '8. rps\n'
                          '9. getPrime\n'
                          '10. leapYear\n'
@@ -27,12 +27,11 @@ def main():
             q2 = Quiz02Bmi(input('이름 : '), float(input('키 : ')), float(input('몸무게 : ')))
             s += f'{q2.name}님의 비만도 결과는 {q2.getBmi()}입니다.'
         elif menu == 3:
-            for i in ['김유신', '강감찬', '유관순']:
-                print(i)
             q3 = Quiz03Grade(input('이름 : '), int(input('국어 점수 : ')), int(input('영어 점수 : ')), int(input('수학 점수 : ')))
             s += f'[성적표]\n이름 : {q3.name}\n국어 점수 : {q3.kor}\n영어 점수 : {q3.eng}\n수학 점수 : {q3.math}\n평균 : {q3.avg:.2f}\n합격 여부 : {q3.checkPass()}\n학점 : {q3.getGrade()}'
         elif menu == 4:
-            pass
+            for i in ['김유신', '강감찬', '유관순', '윤봉길', '신사임당']:
+                print(i)
         elif menu == 5:
             s += f'주사위 숫자 : {Quiz05Dice.cast()}'
         elif menu == 6:
@@ -42,7 +41,7 @@ def main():
             s += f'추출 결과 : {Quiz07RandomChoice().execute()}'
         elif menu == 8:
             q8 = Quiz08Rps(int(input('1~3 사이의 수 입력 : (1 : 가위, 2 : 바위, 3 : 보) ')))
-            s += f'{q8.execute()}'
+            s += q8.execute()
         elif menu == 9:
             q9 = Quiz09GetPrime(int(input('시작값 : ')), int(input('끝값 : ')))
             s += f'입력 범위 내 소수 : {q9.execute()}'
@@ -53,7 +52,8 @@ def main():
         elif menu == 12:
             s += Quiz12Lotto().execute()
         elif menu == 13:
-            pass
+            q13 = Quiz13Bank()
+            s += q13.execute()
         else:
             s += '0~3 사이의 수를 입력해주세요.'
         print(s)
@@ -171,9 +171,11 @@ class Quiz06RandomGenerator:
 
 class Quiz07RandomChoice:
     def __init__(self): # 803호에서 랜덤으로 1명 이름 추출
-        self.members = ['심민혜', '권솔이', '김지혜', '하진희', '최은아',
+        self.members = ['최민서', '한성수', '김윤섭', '김승현',
+                        '심민혜', '권솔이', '김지혜', '하진희', '최은아',
                         '권혜민', '서성민', '조현국', '김한슬', '김진영',
-                        '홍정명', '노홍주', '전종현', '정경준', '양정오']
+                        '홍정명', '노홍주', '전종현', '정경준', '양정오',
+                        '강민', '최건일', '유재혁', '김아름', '장원종']
 
     def execute(self):
         return self.members[myRandom(0, 23)]
@@ -190,7 +192,7 @@ class Quiz08Rps:
         arr = ['가위', '바위', '보', 'Draw', 'Win', 'Lose']
         i = 3
         if abs(u - c) == 1:
-            i = 4 if u > self.com else 5
+            i = 4 if u > c else 5
         elif abs(u - c) == 2:
             i = 5 if u > c else 4
         return f'user : {arr[u - 1]}, com : {arr[c - 1]} \n결과 : {arr[i]}'
@@ -285,6 +287,34 @@ class Quiz12Lotto:
         else:
             s += '\n낙첨되었습니다.'
         return s
+
+
+class Quiz13Bank:
+    def __init__(self):
+        self.bal = 0
+
+    def execute(self):
+        while 1:
+            menu = int(input('0. Exit\n1. 입금\n2. 출금\n'))
+            if menu == 0:
+                break
+            elif menu == 1:
+                self.deposit(int(input('금액 입력 : ')))
+            elif menu == 2:
+                self.withdraw(int(input('금액 입력 : ')))
+            print(f'잔고 : {self.bal}')
+        return f'최종 잔고 : {self.bal}'
+
+    def deposit(self, money):
+        self.bal += money
+
+    def withdraw(self, money):
+        if self.bal >= money:
+            self.bal -= money
+        else:
+            print('잔고가 부족합니다.')
+
+    pass
 
 
 if __name__ == '__main__':
