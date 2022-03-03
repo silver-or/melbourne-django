@@ -52,10 +52,11 @@ def main():
         elif menu == 12:
             s += Quiz12Lotto().execute()
         elif menu == 13:
-            q13 = Quiz13Bank()
-            s += q13.execute()
+            s += Quiz13Bank().execute()
+        elif menu == 14:
+            s += Quiz14Gugudan.execute()
         else:
-            s += '0~3 사이의 수를 입력해주세요.'
+            s += '0~14 사이의 수를 입력해주세요.'
         print(s)
 
 
@@ -224,10 +225,8 @@ class Quiz10LeapYear:
         self.year = year
 
     def execute(self):
-        if self.year % 4 == 0 and self.year % 100 != 0 or self.year % 400 == 0:
-            return f'{self.year}년은 윤년입니다.'
-        else:
-            return f'{self.year}년은 평년입니다.'
+        year = self.year
+        return f'{year}년은 윤년입니다.' if year % 4 == 0 and year % 100 != 0 or year % 400 == 0 else f'{year}년은 평년입니다.'
 
 
 class Quiz11NumberGolf:
@@ -246,7 +245,7 @@ class Quiz11NumberGolf:
             elif num < self.answer:
                 print('더 큰 수를 입력하세요.')
             else:
-                print('잘못 입력하셨습니다.')
+                print('1~100 사이의 숫자를 입력해주세요.')
 
 
 class Quiz12Lotto:
@@ -314,7 +313,18 @@ class Quiz13Bank:
         else:
             print('잔고가 부족합니다.')
 
-    pass
+
+class Quiz14Gugudan:
+    @staticmethod
+    def execute():
+        s = ''
+        for k in range(2, 7, 4):
+            for i in range(1, 10):
+                for j in range(k, k+4):
+                    s += f'{j} * {i} = {i * j} \t'
+                s += '\n'
+            s += '\n'
+        return s
 
 
 if __name__ == '__main__':
