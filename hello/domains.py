@@ -3,9 +3,9 @@ from dataclasses import dataclass
 
 @dataclass
 class Member:
-    _name: str
-    _height: float
-    _weight: float
+    name: str
+    height: float
+    weight: float
 
     @property
     def name(self) -> str: return self._name

@@ -27,7 +27,7 @@ if __name__ == '__main__':
             q1 = Quiz01Calculator(int(input('첫 번째 숫자 : ')), input('연산자 (+, -, *, /) : '), int(input('두 번째 숫자 : ')))
             s += q1.calculate()
         elif menu == 2:
-            m = Member
+            m = Member()
             m.name = input('이름 : ')
             m.height = float(input('키 : '))
             m.weight = float(input('몸무게 : '))
