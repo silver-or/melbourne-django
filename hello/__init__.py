@@ -12,7 +12,7 @@ if __name__ == '__main__':
     q4 = Quiz40()
     while 1:
         menu = input("00.계산기 01.Bmi 02.주사위 03.가위바위보 04.윤년 05.성적표 06.멤버선택 07.로또 08.입출금 09.구구단\n"
-                     "10.버블 11.삽입 12.선택 13.퀵 14.병합 15.매직 16.지그재그 17.직각별 18.정삼각별 19.예약\n"
+                     "10.버블 11.삽입 12.선택 13.퀵 14.병합 15.매직 16.지그재그 17.소수 18.골프 19.예약\n"
                      "20.리스트 21.튜플 22.딕셔너리 23 24 25 26 27 28 29\n"
                      "30 31 32 33 34 35 36 37 38 39\n")
         if menu == '00': q0.quiz00calculator()
@@ -32,8 +32,8 @@ if __name__ == '__main__':
         elif menu == '14': q1.quiz14merge()
         elif menu == '15': q1.quiz15magic()
         elif menu == '16': q1.quiz16zigzag()
-        elif menu == '17': q1.quiz17star()
-        elif menu == '18': q1.quiz18triangle()
+        elif menu == '17': q1.quiz17prime()
+        elif menu == '18': q1.quiz18golf()
         elif menu == '19': q1.quiz19booking()
         elif menu == '20': q2.quiz20list()
         elif menu == '21': q2.quiz21tuple()
@@ -45,5 +45,26 @@ if __name__ == '__main__':
         elif menu == '27': q2.quiz27()
         elif menu == '28': q2.quiz28()
         elif menu == '29': q2.quiz29()
-
+        elif menu == '30': q3.quiz30()
+        elif menu == '31': q3.quiz31()
+        elif menu == '32': q3.quiz32()
+        elif menu == '33': q3.quiz33()
+        elif menu == '34': q3.quiz34()
+        elif menu == '35': q3.quiz35()
+        elif menu == '36': q3.quiz36()
+        elif menu == '37': q3.quiz37()
+        elif menu == '38': q3.quiz38()
+        elif menu == '39': q3.quiz39()
+        elif menu == '40': q4.quiz40()
+        elif menu == '41': q4.quiz41()
+        elif menu == '42': q4.quiz42()
+        elif menu == '43': q4.quiz43()
+        elif menu == '44': q4.quiz44()
+        elif menu == '45': q4.quiz45()
+        elif menu == '46': q4.quiz46()
+        elif menu == '47': q4.quiz47()
+        elif menu == '48': q4.quiz48()
+        elif menu == '49': q4.quiz49()
         else: break
+
+

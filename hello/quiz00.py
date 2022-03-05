@@ -1,24 +1,24 @@
 from hello import Member
-from hello.domains import my100, myRandom
+from hello.domains import my100, myRandom, members
 
 
 class Quiz00:
     def quiz00calculator(self) -> float:
-        s = ''
         a = my100()
         b = my100()
         op = ['+', '-', '*', '/', '%']
         opcode = op[myRandom(0, 4)]
+        s = f'{a} {opcode} {b} = '
         if opcode == '+':
-            s = f'{a} {opcode} {b} = {self.add(a, b)}'
+            s += f'{self.add(a, b)}'
         elif opcode == '-':
-            s = f'{a} {opcode} {b} = {self.sub(a, b)}'
+            s += f'{self.sub(a, b)}'
         elif opcode == '*':
-            s = f'{a} {opcode} {b} = {self.mul(a, b)}'
+            s += f'{self.mul(a, b)}'
         elif opcode == '/':
-            s = f'{a} {opcode} {b} = {self.div(a, b)}'
+            s += f'{self.div(a, b)}'
         else:
-            s = f'{a} {opcode} {b} = {self.mod(a, b)}'
+            s += f'{self.mod(a, b)}'
         print(s)
         return None
 
@@ -39,9 +39,9 @@ class Quiz00:
 
     def quiz01bmi(self):
         this = Member()
-        this.name = '최은아'
-        this.height = 163.6
-        this.weight = 50.0
+        this.name = members()[myRandom(0, 23)]
+        this.height = myRandom(160, 190)
+        this.weight = myRandom(50, 100)
         bmi = this.weight / (this.height * this.height) * 10000
         s = f'{this.name}님의 비만도 결과 : '
         if bmi >= 35:
@@ -84,7 +84,7 @@ class Quiz00:
         avg = self.avg(hap)
         grade = self.getGrade(avg)
         passChk = self.passChk(avg)
-        print([hap, avg, grade, passChk])
+        print(f'국어 점수 : {kor}\n영어 점수 : {eng}\n수학 점수 : {math}\n합계 : {hap}\n평균 : {avg:.2f}\n학점 : {grade}\n합격 여부 : {passChk}')
 
     def hap(self, kor, eng, math):
         return kor + eng + math
@@ -108,12 +108,7 @@ class Quiz00:
         return '합격' if avg >= 60 else '불합격'
 
     def quiz06memberChoice(self):
-        members = ['홍정명', '노홍주', '전종현', '정경준', '양정오',
-                   "권혜민", "서성민", "조현국", "김한슬", "김진영",
-                   '심민혜', '권솔이', '김지혜', '하진희', '최은아',
-                   '최민서', '한성수', '김윤섭', '김승현',
-                   "강 민", "최건일", "유재혁", "김아름", "장원종"]
-        print(members[myRandom(0, 23)])
+        print(members()[myRandom(0, 23)])
 
     def quiz07lotto(self):
         answer = []
@@ -135,7 +130,6 @@ class Quiz00:
             num = myRandom(1, 45)
             if num not in answer:
                 answer.append(num)
-                print(num)
             else:
                 i += 1
 
@@ -162,7 +156,7 @@ class Quiz00:
         print(s)
 
     def quiz08bank(self):  # 이름, 입금, 출금만 구현
-        name = '최은아'
+        name = members()[myRandom(0, 23)]
         bal = 0
         while 1:
             menu = int(input('0. Exit\n1. 입금\n2. 출금\n'))
@@ -174,14 +168,17 @@ class Quiz00:
             elif menu == 2:
                 money = myRandom(100, 10000)
                 bal = self.withdraw(bal, money)
-            print(f'{name}님의 최종 잔고 : {bal}') if bal is not None else print(f'{name}님의 잔고 : 0')
+            print(f'{name}님의 잔고 : {bal}') if bal is not None else print(f'{name}님의 잔고 : 0')
 
     def deposit(self, bal, money):
-        bal += money
+        if bal is not None:
+            bal += money
+        else:
+            bal = money
         return bal
 
     def withdraw(self, bal, money):
-        if bal >= money:
+        if bal is not None and bal >= money:
             bal -= money
             return bal
         else:
