@@ -112,47 +112,32 @@ class Quiz00:
 
     def quiz07lotto(self):
         answer = []
-        num = 0
-        duplicate = 1
-        '''
-        for i in range(6):
-            duplicate = 1
-            while duplicate:
-                num = myRandom(1, 45)
-                duplicate = 0
-                for j in range(i):
-                    if self.answer[j] == num:
-                        duplicate = 1
-                        break
-            self.answer.append(num)
-        '''
-        for i in range(6):
-            num = myRandom(1, 45)
-            if num not in answer:
-                answer.append(num)
-            else:
-                i += 1
-
-        numbers = []
-        for i in range(6):
-            numbers.append(int(input('1~45까지의 숫자 6개를 입력해주세요 (중복 불가) : ')))
-
+        user = []
         count = 0
+        while 1:
+            anum = myRandom(1, 45)
+            if anum not in answer:
+                answer.append(anum)
+            if len(answer) == 6:
+                break
+        while 1:
+            unum = myRandom(1, 45)
+            if unum not in user:
+                user.append(unum)
+            if len(user) == 6:
+                break
         for i in range(6):
-            if numbers[i] in answer:
+            if user[i] in answer:
                 count += 1
-
-        s = '이번주 로또 번호 : '
-        for i in answer:
-            s += str(i) + ' '
+        s = f'이번주 로또 당첨 번호 : {answer}\n사용자 번호 : {user}\n'
         if count == 6:
-            s += '\n1등입니다.'
+            s += '1등입니다.'
         elif count == 5:
-            s += '\n2등입니다.'
+            s += '2등입니다.'
         elif count == 4:
-            s += '\n3등입니다.'
+            s += '3등입니다.'
         else:
-            s += '\n낙첨되었습니다.'
+            s += '낙첨되었습니다.'
         print(s)
 
     def quiz08bank(self):  # 이름, 입금, 출금만 구현

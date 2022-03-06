@@ -1,6 +1,6 @@
 import random
 
-from hello.domains import my100
+from hello.domains import my100, myRandom
 
 
 class Quiz10:
@@ -21,12 +21,7 @@ class Quiz10:
 
     def quiz17prime(self) -> str:
         start = my100()
-        end = my100()
-        while 1:
-            start = my100()
-            end = my100()
-            if end > start:
-                break
+        end = myRandom(start, start * 2)
         s = ''
         for i in range(start, end + 1):
             flag = 1
@@ -42,6 +37,22 @@ class Quiz10:
         print(f'{start} ~ {end} 까지의 소수 : {s}')
         return None
 
-    def quiz18golf(self) -> str: return None
+    def quiz18golf(self) -> str:
+        answer = my100()
+        count = 0
+        s = ''
+        while 1:
+            count += 1
+            num = int(input('1~100 사이의 숫자 입력 : '))
+            if num == answer:
+                s = f'정답입니다. {count}번 만에 맞히셨습니다.'
+            elif num > answer:
+                s = f'더 작은 수를 입력하세요.'
+            elif num < answer:
+                s = f'더 큰 수를 입력하세요.'
+            else:
+                s = '1~100 사이의 숫자를 입력해주세요.'
+            print(s)
+        return None
 
     def quiz19booking(self) -> str: return None
