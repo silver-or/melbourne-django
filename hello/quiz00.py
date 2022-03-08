@@ -185,7 +185,7 @@ class Account(object):
         a = Account.find_account(ls, account_number)
         if a is not None:
             print(f'계좌번호 : {a.account_number}')
-            print(f'입금액 : {deposit}')
+            print(f'입금액 : {deposit} 만원')
             a.money += deposit
             return f'잔고 : {a.money} 만원'
         else:

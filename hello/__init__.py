@@ -13,7 +13,7 @@ if __name__ == '__main__':
     while 1:
         menu = input("00.계산기 01.Bmi 02.주사위 03.가위바위보 04.윤년 05.성적표 06.멤버선택 07.로또 08.입출금 09.구구단\n"
                      "10.버블 11.삽입 12.선택 13.퀵 14.병합 15.매직 16.지그재그 17.소수 18.골프 19.예약\n"
-                     "20.리스트 21.튜플 22.딕셔너리 23 24 25 26 27 28 29\n"
+                     "20.리스트 21.튜플 22.딕셔너리 23.컴프리헨션 24.벅스뮤직(zip) 25 26 27.멜론 28 29\n"
                      "30 31 32 33 34 35 36 37 38 39\n")
         if menu == '00': q0.quiz00calculator()
         elif menu == '01': q0.quiz01bmi()
@@ -42,7 +42,7 @@ if __name__ == '__main__':
         elif menu == '24': q2.quiz24zip()
         elif menu == '25': q2.quiz25dictcom()
         elif menu == '26': q2.quiz26map()
-        elif menu == '27': q2.quiz27()
+        elif menu == '27': q2.quiz27melon()
         elif menu == '28': q2.quiz28()
         elif menu == '29': q2.quiz29()
         elif menu == '30': q3.quiz30()
