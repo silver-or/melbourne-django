@@ -142,35 +142,6 @@ class Quiz00:
 
     def quiz08bank(self):  # 이름, 입금, 출금만 구현
         Account.main()
-        '''
-        name = Quiz00.quiz06memberChoice(self)
-        bal = 0
-        while 1:
-            menu = int(input('0. Exit\n1. 입금\n2. 출금\n'))
-            if menu == 0:
-                break
-            elif menu == 1:
-                money = myRandom(100, 10000)
-                bal = self.deposit(bal, money)
-            elif menu == 2:
-                money = myRandom(100, 10000)
-                bal = self.withdraw(bal, money)
-            print(f'{name}님의 잔고 : {bal}') if bal is not None else print(f'{name}님의 잔고 : 0')
-
-    def deposit(self, bal, money):
-        if bal is not None:
-            bal += money
-        else:
-            bal = money
-        return bal
-
-    def withdraw(self, bal, money):
-        if bal is not None and bal >= money:
-            bal -= money
-        else:
-            print('잔고가 부족합니다.')
-        return bal
-        '''
 
     def quiz09gugudan(self):  # 책받침구구단
         s = ''
@@ -209,16 +180,47 @@ class Account(object):
     def create_account_number(self):
         return ''.join('-' if i == 3 or i == 6 else str(myRandom(0, 9)) for i in range(13))
 
-    def del_account(self, ls, account_number):
+    @staticmethod
+    def deposit(ls, account_number, deposit):
+        a = Account.find_account(ls, account_number)
+        if a is not None:
+            print(f'계좌번호 : {a.account_number}')
+            print(f'입금액 : {deposit}')
+            a.money += deposit
+            return f'잔고 : {a.money} 만원'
+        else:
+            return '계좌번호를 다시 확인해주세요.'
+
+    @staticmethod
+    def withdraw(ls, account_number, withdraw):
+        a = Account.find_account(ls, account_number)
+        if a is not None:
+            if a.money >= withdraw:
+                a.money -= withdraw
+            else:
+                print('잔고가 부족합니다.')
+            return f'잔고 : {a.money} 만원'
+        else:
+            return '계좌번호를 다시 확인해주세요.'
+
+    @staticmethod
+    def del_account(ls, account_number):
         for i, j in enumerate(ls):
             if j.account_number == account_number:
                 del ls[i]
 
     @staticmethod
+    def find_account(ls, account_number):
+        # return ''.join([j.to_string() if j.account_number == account_number else '' for i, j in enumerate(ls)])
+        for i, j in enumerate(ls):
+            if j.account_number == account_number:
+                return j
+
+    @staticmethod
     def main():
         ls = []
         while 1:
-            menu = input('0. 종료 1. 계좌개설 2. 계좌목록 3. 입금 4. 출금 5. 계좌해지\n')
+            menu = input('0. 종료 1. 계좌개설 2. 계좌목록 3. 입금 4. 출금 5. 계좌해지 6. 계좌조회\n')
             if menu == '0':
                 break
             elif menu == '1':
@@ -229,24 +231,17 @@ class Account(object):
                 a = '\n'.join(i.to_string() for i in ls)
                 print(a)
             elif menu == '3':
-                account_number = input('입금할 계좌번호 : ')
-                deposit = int(input('입금액 : '))
-                for i, j in enumerate(ls):
-                    if j.account_number == account_number:
-                        j.money += deposit
+                print(Account.deposit(ls, input('입금할 계좌번호 : '), int(input('입금액 : '))))
             elif menu == '4':
-                account_number = input('출금할 계좌번호 : ')
-                money = int(input('출금액 : '))
-                for i, j in enumerate(ls):
-                    if j.account_number == account_number:
-                        if j.money >= money:
-                            j.money -= money
-                        else:
-                            print('잔고 부족')
+                print(Account.withdraw(ls, input('출금할 계좌번호 : '), int(input('출금액 : '))))
             elif menu == '5':
-                account_number = input('탈퇴할 계좌번호 : ')
-                for i in ls:
-                    i.del_account(ls, account_number)
+                Account.del_account(ls, input('탈퇴할 계좌번호 : '))
+            elif menu == '6':
+                a = Account.find_account(ls, input('조회할 계좌번호 : '))
+                if a is not None:
+                    print(a.to_string())
+                else:
+                    print('찾으시는 계좌가 없습니다.')
             else:
                 print('Wrong Number.. Try Again')
                 continue
