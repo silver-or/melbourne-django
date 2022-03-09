@@ -96,8 +96,7 @@ class Quiz20:
         req = urllib.request.Request(url, headers=headers)
         soup = BeautifulSoup(urlopen(req).read(), 'lxml')
         titles = soup.find_all('div', {'class': 'ellipsis rank01'})
-        titles = [i.get_text() for i in titles]
-        print(''.join(i for i in titles))
+        print(''.join(i.get_text() for i in titles))
         return None
 
     def quiz28(self) -> str: return None
