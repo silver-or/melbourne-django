@@ -2,6 +2,7 @@ import random
 import urllib.request
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+import pandas as pd
 
 
 class Quiz20:
@@ -77,7 +78,7 @@ class Quiz20:
         print(''.join(str(i) for i in range(5)))
         return None
 
-    def quiz24zip(self) -> str:
+    def quiz24zip(self) -> {}:
         url = 'https://music.bugs.co.kr/chart/track/realtime/total'
         html_doc = urlopen(url)
         soup = BeautifulSoup(html_doc, 'lxml')  # html.parser vs. lxml
@@ -87,24 +88,53 @@ class Quiz20:
         print(type(artists))  # <class 'bs4.element.ResultSet'>
         artists = [i.get_text() for i in artists]  # type(artists) : <class 'list'>
         print(''.join(i for i in artists))
+        """
+        # self.print_music_list(soup) # 아티스트와 타이틀을 분리해서 출력하기
+        # self.find_rank(soup) # 랭킹 보기
+        ls1 = self.find_music(soup, 'title')
+        ls2 = self.find_music(soup, 'artist')
+        # self.dict1(ls1, ls2)  # 방법 1. 수열 (range) 로 처리
+        # self.dict2(ls1, ls2)  # 방법 2. enumerate 로 처리
+        dict = {}
+        for i, j in zip(ls1, ls2):  # 방법 3. zip 으로 처리 (권장)
+            dict[i] = j
+        # print(dict)
+        return dict
+
+    @staticmethod
+    def dict1(ls1, ls2) -> None:
+        dict = {}
+        for i in range(0, len(ls1)):
+            dict[ls1[i]] = ls2[i]
+        print(dict)
+
+    @staticmethod
+    def dict2(ls1, ls2) -> None:
+        dict = {}
+        for i, j in enumerate(ls1):
+            dict[j] = ls2[i]
+        print(dict)
+
+    @staticmethod
+    def print_music_list(soup) -> None:
+        artists = soup.find_all('p', {'class': 'artist'})
+        artists = [i.get_text() for i in artists]
+        print(''.join(i for i in artists))
 
         titles = soup.find_all('p', {'class': 'title'})
         titles = [i.get_text() for i in titles]
         print(''.join(i for i in titles))
-        """
-        for i, j in enumerate(['artist', 'title']):
-            res = f'***** {j} ******\n'
-            res += ''.join(f'<{k+1}위> {l}\n' for k, l in enumerate(self.refactoring(soup, j)))
-            print(res)
-        return None
 
+    def find_rank(self, soup) -> None:
+        for i in ['artist', 'title']:
+            res = f'***** {i} ******\n'
+            res += ''.join(f'<{j+1}위> {k}\n' for j, k in enumerate(self.find_music(soup, i)))
+            print(res)
 
     @staticmethod
-    def refactoring(soup, tag) -> str:
-        tags = soup.find_all('p', {'class': tag})
-        tags = [i.get_text() for i in tags]
-        # print(''.join(i for i in tags))
-        return tags
+    def find_music(soup, cls_nm) -> []:
+        ls = soup.find_all('p', {'class': cls_nm})
+        return [i.get_text() for i in ls]
 
     def quiz25dictcom(self) -> str: return None
 
@@ -119,7 +149,11 @@ class Quiz20:
         print(''.join(i.get_text() for i in titles))
         return None
 
-    def quiz28(self) -> str: return None
+    def quiz28dataframe(self) -> None:
+        dict = self.quiz24zip()
+        df = pd.DataFrame.from_dict(dict, orient='index')
+        df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
+        return None
 
     def quiz29(self) -> str:
         a = [i if i == 0 or i == 0 else i for i in range(1)]
