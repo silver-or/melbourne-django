@@ -75,7 +75,6 @@ class Quiz20:
         print(a2)
         print('---------- comprehension + join ----------')
         print(''.join(str(i) for i in range(5)))
-        print(''.join([str(i) for i in range(5)]))
         return None
 
     def quiz24zip(self) -> str:
@@ -93,16 +92,19 @@ class Quiz20:
         titles = [i.get_text() for i in titles]
         print(''.join(i for i in titles))
         """
-        ls = ['artist', 'title']
-        for i in ls:
-            print(f'***** {i} *****\n' + self.refactoring(soup, i))
+        for i, j in enumerate(['artist', 'title']):
+            res = f'***** {j} ******\n'
+            res += ''.join(f'<{k+1}위> {l}\n' for k, l in enumerate(self.refactoring(soup, j)))
+            print(res)
         return None
+
 
     @staticmethod
     def refactoring(soup, tag) -> str:
         tags = soup.find_all('p', {'class': tag})
         tags = [i.get_text() for i in tags]
-        return ''.join(i for i in tags)
+        # print(''.join(i for i in tags))
+        return tags
 
     def quiz25dictcom(self) -> str: return None
 
@@ -119,4 +121,9 @@ class Quiz20:
 
     def quiz28(self) -> str: return None
 
-    def quiz29(self) -> str: return None
+    def quiz29(self) -> str:
+        a = [i if i == 0 or i == 0 else i for i in range(1)]
+        b = [i if i == 0 and i == 0 else i for i in []]
+        c = [(i, j) for i, j in enumerate([])]
+        d = ''.join(i for i in [])
+        return None
