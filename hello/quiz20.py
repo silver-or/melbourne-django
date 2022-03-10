@@ -73,18 +73,36 @@ class Quiz20:
         print('---------- comprehension ----------')
         a2 = [i for i in range(5)]
         print(a2)
+        print('---------- comprehension + join ----------')
+        print(''.join(str(i) for i in range(5)))
+        print(''.join([str(i) for i in range(5)]))
         return None
 
     def quiz24zip(self) -> str:
         url = 'https://music.bugs.co.kr/chart/track/realtime/total'
         html_doc = urlopen(url)
         soup = BeautifulSoup(html_doc, 'lxml')  # html.parser vs. lxml
-        # print(soup.prettify())
+        """
+        print(soup.prettify())
         artists = soup.find_all('p', {'class': 'artist'})
-        # print(type(artists))  # <class 'bs4.element.ResultSet'>
+        print(type(artists))  # <class 'bs4.element.ResultSet'>
         artists = [i.get_text() for i in artists]  # type(artists) : <class 'list'>
         print(''.join(i for i in artists))
+
+        titles = soup.find_all('p', {'class': 'title'})
+        titles = [i.get_text() for i in titles]
+        print(''.join(i for i in titles))
+        """
+        ls = ['artist', 'title']
+        for i in ls:
+            print(f'***** {i} *****\n' + self.refactoring(soup, i))
         return None
+
+    @staticmethod
+    def refactoring(soup, tag) -> str:
+        tags = soup.find_all('p', {'class': tag})
+        tags = [i.get_text() for i in tags]
+        return ''.join(i for i in tags)
 
     def quiz25dictcom(self) -> str: return None
 
