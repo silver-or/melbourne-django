@@ -190,7 +190,7 @@ class Quiz20:
     def quiz29_pandas_df() -> object:
         col = [chr(i) for i in range(97, 100)]
         k = [str(i) for i in range(1, 3)]
-        v = [[2 * j + 1 + i for j in range(3)] for i in range(2)]
+        v = [[j * 2 + 1 + i for j in range(3)] for i in range(2)]
         df = pd.DataFrame.from_dict(dict(zip(k, v)), orient='index', columns=col)
         print(df)
         return df

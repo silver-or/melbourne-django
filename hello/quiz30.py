@@ -7,7 +7,7 @@ from hello.domains import myRandom
 class Quiz30:
 
     '''
-    데이터프레임 문제 Q02
+    데이터프레임 문제 Q02.
     ic| df:     A   B   C
             1   1   2   3
             2   4   5   6
@@ -17,7 +17,7 @@ class Quiz30:
     @staticmethod
     def quiz30_df_4_by_3() -> object:
         col = [chr(i) for i in range(65, 68)]
-        ls = [[j for j in range(i, i + 3)] for i in range(1, 13) if i % 3 == 1]
+        ls = [[i * 3 + j for j in range(1, 4)] for i in range(4)]
         df = pd.DataFrame(ls, index=range(1, 5), columns=col)
         ic(df)
         return df
