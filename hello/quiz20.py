@@ -4,10 +4,14 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import pandas as pd
 
+from hello import Quiz00
+from hello.domains import myRandom
+
 
 class Quiz20:
 
-    def quiz20list(self) -> str:
+    @staticmethod
+    def quiz20list() -> None:
         list1 = [1, 2, 3, 4]
         print(list1, type(list1))
         print(list1[0], list1[-1], list1[-2], list1[1:3])
@@ -42,7 +46,8 @@ class Quiz20:
         print(b.index(0), len(b))
         return None
 
-    def quiz21tuple(self) -> str:
+    @staticmethod
+    def quiz21tuple() -> None:
         a = (1, 2)
         print(a, type(a))
         # a[0] = 4 # error
@@ -51,7 +56,8 @@ class Quiz20:
         print(a + b)
         return None
 
-    def quiz22dict(self) -> str:
+    @staticmethod
+    def quiz22dict() -> None:
         a = {"class": ['deep learning', 'machine learning'], "num_students": [40, 20]}
         print(type(a))
         print(a["class"])
@@ -65,7 +71,8 @@ class Quiz20:
         print("class" in a)
         return None
 
-    def quiz23listcom(self) -> str:
+    @staticmethod
+    def quiz23listcom() -> None:
         print('---------- legacy ----------')
         a = []
         for i in range(5):
@@ -95,11 +102,12 @@ class Quiz20:
         ls2 = self.find_music(soup, 'artist')
         # self.dict1(ls1, ls2)  # 방법 1. 수열 (range) 로 처리
         # self.dict2(ls1, ls2)  # 방법 2. enumerate 로 처리
-        dict = {}
-        for i, j in zip(ls1, ls2):  # 방법 3. zip 으로 처리 (권장)
-            dict[i] = j
-        # print(dict)
-        return dict
+        # self.dict3(ls1, ls2)  # 방법 3. zip 으로 처리 (권장)
+        l1 = [i + j for i, j in zip(ls1, ls2)]
+        l2 = list(zip(ls1, ls2))  # 최종본
+        d1 = {i: j for i, j in zip(ls1, ls2)}
+        d2 = dict(zip(ls1, ls2))  # 최종본
+        return d2
 
     @staticmethod
     def dict1(ls1, ls2) -> None:
@@ -113,6 +121,13 @@ class Quiz20:
         dict = {}
         for i, j in enumerate(ls1):
             dict[j] = ls2[i]
+        print(dict)
+
+    @staticmethod
+    def dict3(ls1, ls2) -> None:
+        dict = {}
+        for i, j in zip(ls1, ls2):
+            dict[i] = j
         print(dict)
 
     @staticmethod
@@ -136,7 +151,17 @@ class Quiz20:
         ls = soup.find_all('p', {'class': cls_nm})
         return [i.get_text() for i in ls]
 
-    def quiz25dictcom(self) -> str: return None
+    @staticmethod
+    def quiz25dictcom() -> None:
+        q = Quiz00()
+        students = set([q.quiz06member_choice() for i in range(5)])
+        while len(students) != 5:
+            students.add(q.quiz06member_choice())
+        students = list(students)
+        scores = [myRandom(0, 100) for i in range(5)]
+        dt = dict(zip(students, scores))
+        print(dt)
+        return None
 
     def quiz26map(self) -> str: return None
 

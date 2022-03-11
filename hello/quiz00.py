@@ -3,7 +3,7 @@ from hello.domains import my100, myRandom, memberlist
 
 
 class Quiz00:
-    def quiz00calculator(self) -> float:
+    def quiz00calculator(self) -> None:
         a = my100()
         b = my100()
         op = ['+', '-', '*', '/', '%']
@@ -16,30 +16,36 @@ class Quiz00:
         elif opcode == '*':
             s += f'{self.mul(a, b)}'
         elif opcode == '/':
-            s += f'{self.div(a, b)}'
+            s += f'{self.div(a, b):.2f}'
         else:
             s += f'{self.mod(a, b)}'
         print(s)
         return None
 
-    def add(self, a, b) -> float:
+    @staticmethod
+    def add(a, b) -> int:
         return a + b
 
-    def sub(self, a, b) -> float:
+    @staticmethod
+    def sub(a, b) -> int:
         return a - b
 
-    def mul(self, a, b) -> float:
+    @staticmethod
+    def mul(a, b) -> int:
         return a * b
 
-    def div(self, a, b) -> float:
+    @staticmethod
+    def div(a, b) -> float:
         return a / b
 
-    def mod(self, a, b) -> float:
+    @staticmethod
+    def mod(a, b) -> int:
         return a % b
 
-    def quiz01bmi(self):
+    @staticmethod
+    def quiz01bmi():
         this = Member()
-        this.name = Quiz00.quiz06memberChoice(self)
+        this.name = Quiz00.quiz06member_choice()
         this.height = myRandom(160, 190)
         this.weight = myRandom(50, 100)
         bmi = this.weight / (this.height * this.height) * 10000
@@ -58,10 +64,12 @@ class Quiz00:
             s += '저체중'
         print(s)
 
-    def quiz02dice(self):
+    @staticmethod
+    def quiz02dice():
         print(myRandom(1, 6))
 
-    def quiz03rps(self):
+    @staticmethod
+    def quiz03rps():
         u = myRandom(1, 3)
         c = myRandom(1, 3)
         arr = ['가위', '바위', '보', 'Draw', 'Win', 'Lose']
@@ -72,7 +80,8 @@ class Quiz00:
             i = 5 if u > c else 4
         print(f'user : {arr[u - 1]}, com : {arr[c - 1]} \n결과 : {arr[i]}')
 
-    def quiz04leap(self):
+    @staticmethod
+    def quiz04leap():
         year = myRandom(1960, 2022)
         print(f'{year}년은 윤년입니다.' if year % 4 == 0 and year % 100 != 0 or year % 400 == 0 else f'{year}년은 평년입니다.')
 
@@ -82,17 +91,20 @@ class Quiz00:
         math = myRandom(0, 100)
         hap = self.hap(kor, eng, math)
         avg = self.avg(hap)
-        grade = self.getGrade(avg)
-        passChk = self.passChk(avg)
-        print(f'국어 점수 : {kor}\n영어 점수 : {eng}\n수학 점수 : {math}\n합계 : {hap}\n평균 : {avg:.2f}\n학점 : {grade}\n합격 여부 : {passChk}')
+        grade = self.get_grade(avg)
+        pass_chk = self.pass_chk(avg)
+        print(f'국어 점수 : {kor}\n영어 점수 : {eng}\n수학 점수 : {math}\n합계 : {hap}\n평균 : {avg:.2f}\n학점 : {grade}\n합격 여부 : {pass_chk}')
 
-    def hap(self, kor, eng, math):
+    @staticmethod
+    def hap(kor, eng, math):
         return kor + eng + math
 
-    def avg(self, hap):
+    @staticmethod
+    def avg(hap):
         return hap / 3.0
 
-    def getGrade(self, avg):
+    @staticmethod
+    def get_grade(avg):
         if avg >= 90:
             return 'A'
         elif avg >= 80:
@@ -104,13 +116,16 @@ class Quiz00:
         else:
             return 'F'
 
-    def passChk(self, avg):  # 60점 이상 이면 합격
+    @staticmethod
+    def pass_chk(avg):  # 60점 이상 이면 합격
         return '합격' if avg >= 60 else '불합격'
 
-    def quiz06memberChoice(self):
+    @staticmethod
+    def quiz06member_choice():
         return memberlist()[myRandom(0, 23)]
 
-    def quiz07lotto(self):
+    @staticmethod
+    def quiz07lotto():
         answer = []
         user = []
         count = 0
@@ -140,10 +155,12 @@ class Quiz00:
             s += '낙첨되었습니다.'
         print(s)
 
-    def quiz08bank(self):  # 이름, 입금, 출금만 구현
+    @staticmethod
+    def quiz08bank():  # 이름, 입금, 출금만 구현
         Account.main()
 
-    def quiz09gugudan(self):  # 책받침구구단
+    @staticmethod
+    def quiz09gugudan():  # 책받침구구단
         s = ''
         for k in range(2, 7, 4):
             for i in range(1, 10):
@@ -167,7 +184,7 @@ class Quiz00:
 class Account(object):
     def __init__(self, name, account_number, money):
         self.BANK_NAME = '비트은행'
-        self.name = Quiz00.quiz06memberChoice(self) if name is None else name
+        self.name = Quiz00.quiz06member_choice() if name is None else name
         self.account_number = self.create_account_number() if account_number is None else account_number
         self.money = myRandom(100, 1000) if money is None else money
 
@@ -177,7 +194,8 @@ class Account(object):
                 f'계좌번호 : {self.account_number}, ' \
                 f'금액 : {self.money} 만원'
 
-    def create_account_number(self):
+    @staticmethod
+    def create_account_number():
         return ''.join('-' if i == 3 or i == 6 else str(myRandom(0, 9)) for i in range(13))
 
     @staticmethod
