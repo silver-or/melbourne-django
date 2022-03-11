@@ -50,9 +50,9 @@ class Quiz10:
                 print(f'정답입니다. {count}번 만에 맞히셨습니다.')
                 return None
             elif num > answer:
-                s = f'더 작은 수를 입력하세요.'
+                s = '더 작은 수를 입력하세요.'
             elif num < answer:
-                s = f'더 큰 수를 입력하세요.'
+                s = '더 큰 수를 입력하세요.'
             else:
                 s = '1~100 사이의 숫자를 입력해주세요.'
             print(s)

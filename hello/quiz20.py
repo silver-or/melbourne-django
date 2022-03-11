@@ -152,16 +152,14 @@ class Quiz20:
         return [i.get_text() for i in ls]
 
     @staticmethod
-    def quiz25dictcom() -> None:
+    def quiz25dictcom() -> {}:
         q = Quiz00()
         students = set([q.quiz06member_choice() for i in range(5)])
         while len(students) != 5:
             students.add(q.quiz06member_choice())
         students = list(students)
         scores = [myRandom(0, 100) for i in range(5)]
-        dt = dict(zip(students, scores))
-        print(dt)
-        return None
+        return {i: j for i, j in zip(students, scores)}
 
     def quiz26map(self) -> str: return None
 
@@ -180,9 +178,19 @@ class Quiz20:
         df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
         return None
 
-    def quiz29(self) -> str:
-        a = [i if i == 0 or i == 0 else i for i in range(1)]
-        b = [i if i == 0 and i == 0 else i for i in []]
-        c = [(i, j) for i, j in enumerate([])]
-        d = ''.join(i for i in [])
-        return None
+    '''
+    데이터프레임 문제 Q01.
+    홀짝을 구분하는 리스트 컴프리헨션과 zip()으로 딕셔너리를 결합시킨 로직으로 작성하시오.
+    다음 결과가 출력되어야 한다.
+        a   b   c
+    1   1   3   5
+    2   2   4   6
+    '''
+    @staticmethod
+    def quiz29_pandas_df() -> object:
+        col = [chr(i) for i in range(97, 100)]
+        k = [str(i) for i in range(1, 3)]
+        v = [[2 * j + 1 + i for j in range(3)] for i in range(2)]
+        df = pd.DataFrame.from_dict(dict(zip(k, v)), orient='index', columns=col)
+        print(df)
+        return df
