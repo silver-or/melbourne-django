@@ -1,3 +1,6 @@
+import random
+import string
+
 import pandas as pd
 from icecream import ic
 
@@ -24,7 +27,7 @@ class Quiz30:
 
     '''
     데이터프레임 문제 Q03.
-    두자리 정수를 랜덤으로 2행 3열 데이터프레임을 생성
+    두 자리 정수를 랜덤으로 2행 3열 데이터프레임을 생성
     ic| df:     0   1   2
             0  97  57  52
             1  56  83  80
@@ -38,7 +41,7 @@ class Quiz30:
 
     '''
     데이터프레임 문제 Q04.
-    국어, 영어, 수학, 사회 4과목을 시험치른 10명의 학생들의 성적표 작성.
+    국어, 영어, 수학, 사회 4과목을 시험 치른 10명의 학생들의 성적표 작성.
     단 점수 0 ~ 100이고 학생은 랜덤 알파벳 5자리 ID 로 표기
 
      ic| df4:        국어  영어  수학  사회
@@ -56,8 +59,8 @@ class Quiz30:
     @staticmethod
     def quiz32_df_grade() -> object:
         subjects = ['국어', '영어', '수학', '사회']
-        names = [''.join(chr(myRandom(97, 122)) for j in range(5)) for i in range(10)]
-        scores = [[myRandom(0, 100) for i in range(4)] for i in range(10)]
+        names = [''.join(random.choice(string.ascii_letters) for j in range(5)) for i in range(10)]
+        scores = [[myRandom(0, 100) for j in range(4)] for i in range(10)]
         df = pd.DataFrame.from_dict(dict(zip(names, scores)), orient='index', columns=subjects)
         ic(df)
         return df

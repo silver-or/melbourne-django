@@ -163,7 +163,7 @@ class Quiz20:
 
     def quiz26map(self) -> str: return None
 
-    def quiz27melon(self) -> str:
+    def quiz27melon(self) -> None:
         headers = {'User-Agent': 'Mozilla/5.0'}
         url = 'https://www.melon.com/chart/index.htm?dayTime=2022030816'
         req = urllib.request.Request(url, headers=headers)
@@ -190,7 +190,36 @@ class Quiz20:
     def quiz29_pandas_df() -> object:
         col = [chr(i) for i in range(97, 100)]
         k = [str(i) for i in range(1, 3)]
-        v = [[j * 2 + 1 + i for j in range(3)] for i in range(2)]
+        v = [[j * 2 + i + 1 for j in range(3)] for i in range(2)]
         df = pd.DataFrame.from_dict(dict(zip(k, v)), orient='index', columns=col)
         print(df)
         return df
+
+    '''
+    다음 결과가 출력되어야 한다.
+        1   2   3   4   5
+    a   1   5   9   13  17
+    b   2   6   10  14  18
+    c   3   7   11  15  19
+    d   4   8   12  16  20
+    '''
+    @staticmethod
+    def quiz29_ex1_pandas_df() -> None:
+        col = [i for i in range(1, 6)]
+        k = [chr(i) for i in range(97, 101)]
+        v = [[j * 4 + i + 1 for j in range(5)] for i in range(4)]
+        df = pd.DataFrame.from_dict(dict(zip(k, v)), orient='index', columns=col)
+        print(df)
+
+    '''
+    다음 결과가 출력되어야 한다.
+        0   1   2   3
+    0   10  20  30  40
+    1   50  60  70  80
+    2   90  100 110 120 
+    '''
+    @staticmethod
+    def quiz29_ex2_pandas_df() -> None:
+        ls = [[(j + 1) * 10 + i * 40 for j in range(4)] for i in range(3)]
+        df = pd.DataFrame(ls)
+        print(df)
