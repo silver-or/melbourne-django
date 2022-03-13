@@ -189,8 +189,8 @@ class Quiz20:
     @staticmethod
     def quiz29_pandas_df() -> object:
         col = [chr(i) for i in range(97, 100)]
-        k = [str(i) for i in range(1, 3)]
-        v = [[j * 2 + i + 1 for j in range(3)] for i in range(2)]
+        k = [i for i in range(1, 3)]
+        v = [[i + j * 2 + 1 for j in range(3)] for i in range(2)]
         df = pd.DataFrame.from_dict(dict(zip(k, v)), orient='index', columns=col)
         print(df)
         return df
@@ -207,7 +207,7 @@ class Quiz20:
     def quiz29_ex1_pandas_df() -> None:
         col = [i for i in range(1, 6)]
         k = [chr(i) for i in range(97, 101)]
-        v = [[j * 4 + i + 1 for j in range(5)] for i in range(4)]
+        v = [[i + j * 4 + 1 for j in range(5)] for i in range(4)]
         df = pd.DataFrame.from_dict(dict(zip(k, v)), orient='index', columns=col)
         print(df)
 
@@ -220,6 +220,20 @@ class Quiz20:
     '''
     @staticmethod
     def quiz29_ex2_pandas_df() -> None:
-        ls = [[(j + 1) * 10 + i * 40 for j in range(4)] for i in range(3)]
+        ls = [[i * 40 + (j + 1) * 10 for j in range(4)] for i in range(3)]
         df = pd.DataFrame(ls)
+        print(df)
+
+    '''
+    다음 결과가 출력되어야 한다.
+        0   1   2   3
+    A   2   4   6   8
+    B   3   6   9   12
+    C   4   8   12  16
+    '''
+    @staticmethod
+    def quiz29_ex3_pandas_df() -> None:
+        k = [chr(i) for i in range(65, 68)]
+        v = [[i + j * i for j in range(4)] for i in range(2, 5)]
+        df = pd.DataFrame.from_dict(dict(zip(k, v)), orient='index')
         print(df)

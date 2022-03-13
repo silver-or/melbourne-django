@@ -44,7 +44,7 @@ class Quiz30:
     국어, 영어, 수학, 사회 4과목을 시험 치른 10명의 학생들의 성적표 작성.
     단 점수 0 ~ 100이고 학생은 랜덤 알파벳 5자리 ID 로 표기
 
-     ic| df4:        국어  영어  수학  사회
+     ic| df:        국어  영어  수학  사회
                lDZid  57  90  55  24
                Rnvtg  12  66  43  11
                ljfJt  80  33  89  10
@@ -55,7 +55,7 @@ class Quiz30:
                QDBCw  44  32   8  29
                PZOTP  94  78  79  96
                GOJKU  62  17  75  49
-       '''
+    '''
     @staticmethod
     def quiz32_df_grade() -> object:
         subjects = ['국어', '영어', '수학', '사회']
