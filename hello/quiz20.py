@@ -188,12 +188,73 @@ class Quiz20:
     '''
     @staticmethod
     def quiz29_pandas_df() -> object:
+        '''
+        내 풀이)
         col = [chr(i) for i in range(97, 100)]
         k = [i for i in range(1, 3)]
         v = [[i + j * 2 + 1 for j in range(3)] for i in range(2)]
         df = pd.DataFrame.from_dict(dict(zip(k, v)), orient='index', columns=col)
         print(df)
         return df
+        '''
+        # 기본
+        d1 = {'a': [1, 2], 'b': [3, 4], 'c': [5, 6]}
+        df1 = pd.DataFrame(d1, index=[1, 2])
+        '''
+           a  b  c
+        1  1  3  5
+        2  2  4  6
+        '''
+
+        # index, columns 지정 안 한 겨우
+        d2 = {'1': [1, 3, 5], '2': [2, 4, 6]}
+        df2 = pd.DataFrame.from_dict(d2)
+        '''
+           1  2
+        0  1  2
+        1  3  4
+        2  5  6
+        '''
+
+        # key를 index로 지정한 경우
+        df3 = pd.DataFrame.from_dict(d2, orient='index')
+        '''
+           0  1  2
+        1  1  3  5
+        2  2  4  6
+        '''
+
+        # key를 index로 지정하고, columns를 따로 지정한 경우
+        df4 = pd.DataFrame.from_dict(d2, orient='index', columns=['a', 'b', 'c'])
+        '''
+           a  b  c
+        1  1  3  5
+        2  2  4  6
+        '''
+
+        # columns를 comprehension으로 처리하고 list 두 개를 dict로 변환한 경우, 나머지 코드는 df4와 동일
+        col = [chr(i) for i in range(97, 100)]
+        k = ['1', '2']
+        v = [[1, 3, 5], [2, 4, 6]]
+        df5 = pd.DataFrame.from_dict(dict(zip(k, v)), orient='index', columns=col)
+        '''
+           a  b  c
+        1  1  3  5
+        2  2  4  6
+        '''
+
+        # 홀수와 짝수 list를 만든 경우, 나머지 코드는 df5와 동일
+        col = [chr(i) for i in range(97, 100)]
+        odds = []
+        evens = []
+        ls = [odds.append(i) if i % 2 != 0 else evens.append(i) for i in range(1, 7)]
+        k = ['1', '2']
+        v = [odds, evens]
+        d = {i: j for i, j in zip(k, v)}
+        df6 = pd.DataFrame.from_dict(d, orient='index', columns=col)
+        print(df6)
+
+        return df6
 
     '''
     다음 결과가 출력되어야 한다.
