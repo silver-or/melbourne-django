@@ -1,8 +1,10 @@
-from titanic.models import Model
-from titanic.domains import Dataset
+from icecream import ic
+
+from context.models import Model
+from context.domains import Dataset
 
 
-class View:
+class TitanicView:
     model = Model()
     dataset = Dataset()
 
@@ -17,3 +19,4 @@ class View:
         # id 추출
         print(f'트레인 컬럼 {this.train.columns}')
         print(f'트레인 헤드 {this.train.head()}')
+        ic(this.train)

@@ -1,10 +1,12 @@
 # context, fname, train, test, id, label
 from dataclasses import dataclass
 
-
+# 중복 데이터
+# 공용 설정값
 @dataclass
 class Dataset:
-    context: str
+    dname: str
+    sname: str
     fname: str
     train: str
     test: str
@@ -12,10 +14,16 @@ class Dataset:
     label: str
 
     @property
-    def context(self) -> str: return self._context
+    def dname(self) -> str: return self._dname
 
-    @context.setter
-    def context(self, context): self._context = context
+    @dname.setter
+    def dname(self, dname): self._dname = dname
+
+    @property
+    def sname(self) -> str: return self._sname
+
+    @sname.setter
+    def sname(self, sname): self._sname = sname
 
     @property
     def fname(self) -> str: return self._fname
