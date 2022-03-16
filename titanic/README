@@ -53,7 +53,8 @@ Some children travelled only with a nanny, therefore parch=0 for them.
 
 *** 데이터 분류하기 ***
 컬럼 (column) = 변수 (variable) = 피처 (feature)
-'Survived' → label (레이블 : 분석으로 나온 결괏값)
+DF의 피처 하나 = 딕셔너리 {'': []}
+'Survived' → label (레이블 : 분석으로 나온 결괏값, 정답)
 'Pclass' : 객실 등급 (승객의 사회적, 경제적 지위) → ordinal : 1.5와 같은 구간이 없고 1, 2, 3으로 딱 나누어져 있음 + 순서 존재
 'Name' : 이름 → nominal : 계급장이 높을수록 생존율이 높음. 계급장에 따라 생존율이 달라지므로 Rev. , Mrs. 와 같은 계급장만 추출할 예정. 이름 앞에 계급장이 없으면 불필요한 데이터임 (이름이 '최은아'라고 해서 생존율이 높아질 리 없다.)
 'Sex' : 성별 → nominal

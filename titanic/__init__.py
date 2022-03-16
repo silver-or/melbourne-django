@@ -14,7 +14,7 @@ if __name__ == '__main__':
         menu = print_menu()
         if menu == '1':
             print(' #### 1. 템플릿 #### ')
-            template = TitanicTemplate(train_fname='train.csv', test_fname='test.csv')
+            template = TitanicTemplate(fname='train.csv')
         elif menu == '2':
             print(' #### 2. 전처리 #### ')
             model = TitanicModel(train_fname='train.csv', test_fname='test.csv')
