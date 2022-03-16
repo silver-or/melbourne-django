@@ -11,9 +11,11 @@ class Model:
 
     def new_model(self, fname) -> object:  # 메모리
         this = self.ds
-        # index_col=0 해야 기존 index 값이 유지된다.
-        # 0은 column명 중 첫 번째를 의미한다. (배열 구조)
-        # pd.read_csv('경로/파일명.csv', index_col='index로 지정할 column명') Index 지정
+        '''
+        index_col=0 해야 기존 index 값이 유지된다.
+        0은 column명 중 첫 번째를 의미한다. (배열 구조)
+        pd.read_csv('경로/파일명.csv', index_col='index로 지정할 column명') Index 지정
+        '''
         return pd.read_csv(f'{this.dname}{fname}', index_col=0)
 
     def save_model(self, fname, dfname):  # 디스크

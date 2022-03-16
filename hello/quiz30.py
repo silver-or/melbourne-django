@@ -5,10 +5,8 @@ import numpy as np
 import pandas as pd
 from icecream import ic
 
-from hello import Quiz00
-from hello.domains import memberlist
-
 from context.models import Model
+from hello.domains import memberlist
 
 
 class Quiz30:
@@ -121,31 +119,31 @@ class Quiz30:
         # ic(df)
 
         '''
-        ic| grade_df:               자바  파이썬  자바스크립트  SQL
-                      0         홍정명   2   92      40   55
-                      1         노홍주  60   81      74   86
-                      2         전종현  80   77      85    4
-                      3         정경준  46   79      64   65
-                      4         양정오  29   34      93   81
-                      5         권혜민  48    7       4   45
-                      6         서성민  26    0      98   89
-                      7         조현국  99   61      47   37
-                      8         김한슬  75   35      82   57
-                      9         김진영  81   56      40   20
-                      10        심민혜  29   99      99   61
-                      11        권솔이  48   77      96    4
-                      12        김지혜  91   53      68   75
-                      13        하진희   7   12      18   66
-                      14        최은아  92   87      90   84
-                      15        최민서   1   17      17   53
-                      16        한성수  84   74      41    5
-                      17        김윤섭  28   64      19   15
-                      18        김승현  45   62      17   80
-                      19        강 민  86   24      22   98
-                      20        최건일  13   77      49   15
-                      21        유재혁  50   56      16   58
-                      22        김아름  51   50      28   12
-                      23        장원종  38   66      30   74
+        ic| grade_df:      자바  파이썬  자바스크립트  SQL
+                      홍정명   2   92      40   55
+                      노홍주  60   81      74   86
+                      전종현  80   77      85    4
+                      정경준  46   79      64   65
+                      양정오  29   34      93   81
+                      권혜민  48    7       4   45
+                      서성민  26    0      98   89
+                      조현국  99   61      47   37
+                      김한슬  75   35      82   57
+                      김진영  81   56      40   20
+                      심민혜  29   99      99   61
+                      권솔이  48   77      96    4
+                      김지혜  91   53      68   75
+                      하진희   7   12      18   66
+                      최은아  92   87      90   84
+                      최민서   1   17      17   53
+                      한성수  84   74      41    5
+                      김윤섭  28   64      19   15
+                      김승현  45   62      17   80
+                      강 민  86   24      22   98
+                      최건일  13   77      49   15
+                      유재혁  50   56      16   58
+                      김아름  51   50      28   12
+                      장원종  38   66      30   74
         '''
         # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html
         '''
@@ -168,7 +166,11 @@ class Quiz30:
 
         print('Q2. 조현국의 점수만 출력하시오.')
         cho_scores = grade_df.loc['조현국']
-        ic(cho_scores)
+        ic(cho_scores)  # type(cho_scores): <class 'pandas.core.series.Series'>
+
+        print('Q3. 조현국의 과목별 점수를 출력하시오.')
+        cho_subjects_scores = grade_df.loc[['조현국']]
+        ic(cho_subjects_scores)  # type(cho_subjects_scores): <class 'pandas.core.frame.DataFrame'>
 
         return grade_df
 
