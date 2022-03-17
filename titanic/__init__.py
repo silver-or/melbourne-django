@@ -3,6 +3,7 @@ from titanic.models import TitanicModel
 from titanic.templates import TitanicTemplate
 from titanic.views import TitanicView
 
+# MTV 에서 View (Controller)
 if __name__ == '__main__':
     view = TitanicView()
 
@@ -15,9 +16,10 @@ if __name__ == '__main__':
         if menu == '1':
             print(' #### 1. 템플릿 #### ')
             template = TitanicTemplate(fname='train.csv')
+            template.visualize()
         elif menu == '2':
             print(' #### 2. 전처리 #### ')
-            model = TitanicModel(train_fname='train.csv', test_fname='test.csv')
-            model.preprocess()
+            model = TitanicModel()
+            model.preprocess(train_fname='train.csv', test_fname='test.csv')
         else:
             break

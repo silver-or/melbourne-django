@@ -9,6 +9,9 @@ class Model:
         this.dname = './data/'  # 읽어올 때
         this.sname = './save/'  # 저장할 때
 
+    def get_sname(self):
+        return self.ds.sname
+
     def new_model(self, fname) -> object:  # 메모리
         this = self.ds
         '''
@@ -17,6 +20,11 @@ class Model:
         pd.read_csv('경로/파일명.csv', index_col='index로 지정할 column명') Index 지정
         '''
         return pd.read_csv(f'{this.dname}{fname}', index_col=0)
+
+    def new_dframe(self, fname) -> object:  # 메모리
+        this = self.ds
+        # pd.read_csv('경로/파일명.csv') Index 지정하지 않음
+        return pd.read_csv(f'{this.dname}{fname}')
 
     def save_model(self, fname, dfname):  # 디스크
         this = self.ds
