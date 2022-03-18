@@ -7,17 +7,18 @@ class TitanicModel:
     model = Model()
     dataset = Dataset()
 
-    def preprocess(self, train_fname, test_fname) -> object:  # 데이터 변경 후 리턴
-        this = self.dataset  # titanic  # this : model
+    def preprocess(self, train_fname, test_fname) -> object:  # 데이터 가공 후 리턴
+        this = self.dataset  # this : model = titanic
         that = self.model
-        # 데이터셋은 Train, Test, Validation 3종류로 나뉜다.
-        this.train = that.new_dframe(train_fname)  # DF (object)
-        this.test = that.new_dframe(test_fname)  # DF (object)
-        this.id = this.test['PassengerId']  # 문제  # Series
-        this.label = this.train['Survived']  # 정답
+        feature = ['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp', 'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked']
+        this.train = that.new_dframe(train_fname)
+        this.test = that.new_dframe(test_fname)
+        this.id = this.test['PassengerId']
+        this.label = this.train['Survived']
         # Entity에서 Object로 전환
-        this.train = this.train.drop('Survived', axis=1)  # 정답 제거 # axis : 축 → row : 0, col : 1
-        this = self.drop_feature(this, 'SibSp', 'Parch', 'Ticket', 'Cabin')
+        this.train = this.train.drop(feature[1], axis=1)  # 정답 제거 # axis : 축 → row : 0, col : 1
+        this = self.drop_feature(this, feature[6], feature[7], feature[8], feature[10])
+        self.kwargs_sample(name='이순신')
         '''
         this = self.drop_feature(this)
         this = self.name_nominal(this)
@@ -49,11 +50,14 @@ class TitanicModel:
 
     @staticmethod
     def drop_feature(this, *feature) -> object:
-        [i.drop(j, axis=1, inplace=True) for j in feature for i in [this.train, this.test]]
-        # [i.drop(list(feature), axis=1, inplace=True) for i in [this.train, this.test]]
-        print(this.train)
-        print(this.test)
+        # [i.drop(j, axis=1, inplace=True) for j in feature for i in [this.train, this.test]]  # inplace : 원본 훼손 (데이터 유실)의 가능성 존재
+        [i.drop(list(feature), axis=1, inplace=True) for i in [this.train, this.test]]
         return this
+
+    @staticmethod
+    def kwargs_sample(**kwargs) -> None:
+        ic(type(kwargs))  # ic| type(kwargs): <class 'dict'>
+        {print(''.join(f'key : {i}, val : {j}')) for i, j in kwargs.items()}  # key : name, val : 이순신
     '''
     Categorical vs. Quantitative
     Cate → nominal (이름) vs. ordinal (순서)

@@ -154,7 +154,7 @@ class Quiz30:
         students_scores_df = pd.DataFrame.from_dict(students_scores, orient='index', columns=subjects)
         # students_scores_df = pd.DataFrame(scores, index=students, columns=subjects)
         model = Model()
-        # model.save_model(fname='grade.csv', dfname=students_scores_df)
+        # model.save_model(fname='grade.csv', dframe=students_scores_df)
         '''
         model = Model()
         grade_df = model.new_model('grade.csv')

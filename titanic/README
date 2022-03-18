@@ -70,14 +70,26 @@ DF의 피처 하나 = 딕셔너리 {'': []}
 *** 경연 대회 참가 시 ***
 1. DF 생성
 2. column 추출
+
+# template
+1. 데이터 시각화 → feature별로 차트 그리는 메소드를 visualize()와 동급인 메소드로 생성
+2. visualize() 메소드 생성 → hook (템플릿 메소드 패턴)
+    * visualize() 에서 조립, 단일 알고리즘을 갖지 않음 *
+    * entity : 원 데이터의 상태, 차트를 그리는 것은 가공 전에 실행 → 상관관계 파악 *
+    1) 1에서 만든 메소드 호출
+
 # model
-3. 필요 없는 feature 버리기 (drop_feature() 메소드)
-4. preprocess() 에서 3 호출 → hook
+1. 필요 없는 feature 버리기 (drop_feature() 메소드)
+2. 4가지 데이터 측정 척도에 따라 데이터 분류 : nominal, ordinal, interval, ratio → preprocess()와 동급인 메소드로 생성
+3. preprocess() 메소드 생성 → hook (템플릿 메소드 패턴)
     * preprocess() 에서 조립, 단일 알고리즘을 갖지 않음 *
     1) train, test, id, label 만들기
-    2) 정답(label) 제거
-    3) 4가지 데이터 측정 척도에 따라 데이터 분류 : nominal, ordinal, interval, ratio → preprocess()와 동급인 메소드로 생성
-    4) 템플릿 메소드 패턴을 이용하여 3)에서 만든 메소드 순서 지정
+        데이터셋은 Train, Test, Validation 3종류로 나뉨
+        Validation은 id(문제)와 label(정답)으로 구성됨
+        train과 test는 DF(object), id와 label은 Series
+    2) label(정답) 제거
+    3) 1 호출
+    4) 2에서 만든 메소드 순서 지정 후 호출
 
     '''
     # four data measurement scales

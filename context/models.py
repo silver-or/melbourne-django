@@ -23,10 +23,10 @@ class Model:
 
     def new_dframe(self, fname) -> object:  # 메모리
         this = self.ds
-        # pd.read_csv('경로/파일명.csv') Index 지정하지 않음
+        # pd.read_csv('경로/파일명.csv') Index 지정 안 함
         return pd.read_csv(f'{this.dname}{fname}')
 
-    def save_model(self, fname, dfname):  # 디스크
+    def save_model(self, fname, dframe):  # 디스크
         this = self.ds
         '''
         풀옵션은 다음과 같다.
@@ -35,4 +35,4 @@ class Model:
                   columns=['ID', 'X2'],  # columns to write
                   index=False)  # do not write index
         '''
-        dfname.to_csv(f'{this.sname}{fname}', sep=',', na_rep='NaN')
+        dframe.to_csv(f'{this.sname}{fname}', sep=',', na_rep='NaN')

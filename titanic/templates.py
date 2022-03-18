@@ -41,9 +41,9 @@ class TitanicTemplate:
     def draw_survived(this) -> None:
         f, ax = plt.subplots(1, 2, figsize=(18, 8))  # nrows=1, ncols=2, figsize=18inch, 8inch  # f = figure, ax = x, y축
         this['Survived'].value_counts().plot.pie(explode=[0, 0.1], autopct='%1.1f%%', ax=ax[0], shadow=True)  # 1.1f% : 100% 단위
-        ax[0].set_title('0. 사망자 vs. 1. 생존자')  # x축
+        ax[0].set_title('0. 사망자 vs. 1. 생존자')
         ax[0].set_ylabel('')
-        ax[1].set_title('0. 사망자 vs. 1. 생존자')  # y축
+        ax[1].set_title('0. 사망자 vs. 1. 생존자')
         sns.countplot('Survived', data=this, ax=ax[1])
         plt.savefig(f'{Model().get_sname()}draw_survived.png')
 
