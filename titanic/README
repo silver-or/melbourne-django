@@ -81,6 +81,8 @@ DF의 피처 하나 = 딕셔너리 {'': []}
 # model
 1. 필요 없는 feature 버리기 (drop_feature() 메소드)
 2. 4가지 데이터 측정 척도에 따라 데이터 분류 : nominal, ordinal, interval, ratio → preprocess()와 동급인 메소드로 생성
+    * Name의 경우 데이터에서 signal 추출 *
+    * mapping : 자연어로 되어있는 데이터를 전부 기계어로 변환 → model *
 3. preprocess() 메소드 생성 → hook (템플릿 메소드 패턴)
     * preprocess() 에서 조립, 단일 알고리즘을 갖지 않음 *
     1) train, test, id, label 만들기
