@@ -19,19 +19,15 @@ class TitanicModel:
         this.label = this.train['Survived']
         # Entity에서 Object로 전환
         this.train = this.train.drop(feature[1], axis=1)  # 정답 제거 # axis : 축 → row : 0, col : 1
-        this = self.drop_feature(this, feature[6], feature[7], feature[8], feature[10])
         # self.kwargs_sample(name='이순신')  # **kwargs sample, titanic 흐름과 무관
         this = self.extract_title_from_name(this)
         title_mapping = self.remove_duplicate(this)
         this = self.title_nominal(this, title_mapping)
-        this = self.drop_feature(this, feature[3])
         this = self.sex_nominal(this)
-        this = self.drop_feature(this, feature[4])
         this = self.embarked_nominal(this)
         this = self.age_ratio(this)
-        this = self.drop_feature(this, feature[5])
         this = self.fare_ratio(this)
-        this = self.drop_feature(this, feature[9])
+        this = self.drop_feature(this, feature[3:11])
         '''
         this = self.pclass_ordinal(this)
         this = self.create_train(this)
@@ -56,8 +52,8 @@ class TitanicModel:
 
     @staticmethod
     def drop_feature(this, *feature) -> object:
-        # [i.drop(j, axis=1, inplace=True) for j in feature for i in [this.train, this.test]]  # inplace : 원본 훼손 (데이터 유실)의 가능성 존재
-        [i.drop(list(feature), axis=1, inplace=True) for i in [this.train, this.test]]
+        [i.drop(j, axis=1, inplace=True) for j in feature for i in [this.train, this.test]]  # inplace : 원본 훼손 (데이터 유실)의 가능성 존재
+        # [i.drop(list(feature), axis=1, inplace=True) for i in [this.train, this.test]]
         return this
 
     @staticmethod
@@ -77,15 +73,17 @@ class TitanicModel:
     def extract_title_from_name(this) -> object:
         # this = self.dataset / train, test : DF
         for these in [this.train, this.test]:  # 데이터셋에 있던 train과 test를 편집하기 위해 리스트에 옮김
-            these['Title'] = these.Name.str.extract('([A-Za-z]+)\.', expand=False)  # '' 안에서 정규식 사용 → 알파벳 대소문자 반드시 존재 / 뒤에 있는 건 버리기
+            these['Title'] = these.Name.str.extract('([A-Za-z]+)\.', expand=False)  # '' 안에서 정규식 사용 → 알파벳 대소문자 반드시 존재 / . 뒤에 있는 건 버리기
         return this
 
     @staticmethod
     def remove_duplicate(this):
+        '''
         titles = []
         for these in [this.train, this.test]:
             titles += list(set(these['Title']))
         titles = list(set(titles))
+        '''
         '''
         ['Mr', 'Sir', 'Major', 'Don', 'Rev', 'Countess', 'Lady', 'Jonkheer', 'Dr',
         'Miss', 'Col', 'Ms', 'Dona', 'Mlle', 'Mme', 'Mrs', 'Master', 'Capt']
@@ -136,10 +134,10 @@ class TitanicModel:
     def fare_ratio(this) -> object:
         train = this.train
         test = this.test
-        labels = ['N', 'Third', 'Second', 'First']
-        fare_mapping = {'N': 0, 'Third': 1, 'Second': 2, 'First': 3}
+        labels = ['N', '3rd', '2nd', '1st']
+        fare_mapping = {'N': 0, '3rd': 3, '2nd': 2, '1st': 1}
+        this.test['Fare'] = this.test['Fare'].fillna(1)
         for these in train, test:
-            these['Fare'] = these['Fare'].fillna(1)
             these['FareBand'] = pd.qcut(these['Fare'], 4, labels=labels)
             these['FareBand'] = these['FareBand'].map(fare_mapping)
         return this

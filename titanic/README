@@ -90,8 +90,8 @@ DF의 피처 하나 = 딕셔너리 {'': []}
         Validation은 id(문제)와 label(정답)으로 구성됨
         train과 test는 DF(object), id와 label은 Series
     2) label(정답) 제거
-    3) 1 호출
-    4) 2에서 만든 메소드 순서 지정 후 호출
+    3) 2에서 만든 메소드 순서 지정 후 호출
+    4) 1 호출
 
     '''
     # four data measurement scales
