@@ -134,8 +134,8 @@ class TitanicModel:
     def fare_ratio(this) -> object:
         train = this.train
         test = this.test
-        labels = ['N', '3rd', '2nd', '1st']
-        fare_mapping = {'N': 0, '3rd': 3, '2nd': 2, '1st': 1}
+        labels = ['4th', '3rd', '2nd', '1st']
+        fare_mapping = {'1st': 1, '2nd': 2, '3rd': 3,  '4th': 4}
         this.test['Fare'] = this.test['Fare'].fillna(1)
         for these in train, test:
             these['FareBand'] = pd.qcut(these['Fare'], 4, labels=labels)
