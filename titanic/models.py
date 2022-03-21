@@ -37,6 +37,19 @@ class TitanicModel:
         ic(accuracy)
         return this  # final df는 정제된 상태
 
+    def learning(self, train_fname, test_fname):
+        this = self.preprocess(train_fname, test_fname)
+        k_fold = self.create_k_fold()
+        ic(f'사이킷런 알고리즘 정확도 : {self.get_accuracy(this, k_fold)}')
+        self.submit(this)
+
+    @staticmethod
+    def submit(this):
+        clf = RandomForestClassifier()
+        clf.fit(this.train, this.label)
+        prediction = clf.predict(this.test)
+        pd.DataFrame({'PassengerId': this.id, 'Survived': prediction}).to_csv('./save/submission.csv', index=False)
+
     @staticmethod
     def df_info(this):  # this = self.dataset
         [print(f'{i.info()}') for i in [this.train, this.test]]

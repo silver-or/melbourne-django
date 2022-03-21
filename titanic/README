@@ -84,7 +84,7 @@ DF의 피처 하나 = 딕셔너리 {'': []}
     * interval 또는 ratio로 분류했다면 pd.cut / pd.qcut을 이용하여 scale을 분류하고 (bins 지정 및 null 값 처리), scale별 명칭을 지정 (labels) *
         null 값은 실제값과 매칭되지 않도록 상상 속의 값을 넣어서 처리 → fillna
         interval : bins가 -np.inf부터 시작
-        ratio : bins가 -1부터 시작 (음수값 허용 X)
+        ratio : bins가 -1부터 시작 (음수값 허용 X / -1과 0 사이는 unknown, null 값)
         ratio > interval > ordinal > nominal 순으로 정확도가 높음
     * Name의 경우 데이터에서 signal 추출 *
     * mapping : 자연어로 되어있는 데이터를 전부 기계어로 변환 → model *
@@ -110,6 +110,7 @@ Classifier : 분류기 (생존자 / 사망자)
 
 
 *** titanic은 지도 학습 ***
-지도 학습은 label 필요 → mapping 해야 함 (cf. 비지도학습은 original 값)
+Machine Learning : 자연어 → 기계어
+지도 학습은 label 필요 → mapping 해야 함 (cf. 비지도 학습은 original 값)
 mapping : 디스크와 메모리가 값을 서로 주고 받는 것, 개체값(실제 데이터값) 에서 객체값(가상값)으로 변환 (자연어로 되어있는 데이터를 전부 기계어로 변환)
 mapping 하면 연속값이 이산값이 되고, model이 됨
