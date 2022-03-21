@@ -1,6 +1,9 @@
 import numpy as np
 import pandas as pd
 from icecream import ic
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestClassifier
 from context.domains import Dataset
 from context.models import Model
 
@@ -28,11 +31,10 @@ class TitanicModel:
         this = self.age_ratio(this)
         this = self.fare_ratio(this)
         this = self.drop_feature(this, feature[3:11])
-        '''
-        this = self.pclass_ordinal(this)
-        this = self.create_train(this)
-        '''
-        self.df_info(this)
+        # self.df_info(this)
+        k_fold = self.create_k_fold()
+        accuracy = self.get_accuracy(this, k_fold)
+        ic(accuracy)
         return this  # final df는 정제된 상태
 
     @staticmethod
@@ -61,14 +63,10 @@ class TitanicModel:
         ic(type(kwargs))  # ic| type(kwargs): <class 'dict'>
         {print(''.join(f'key : {i}, val : {j}')) for i, j in kwargs.items()}  # key : name, val : 이순신
     '''
-    Categorical vs. Quantitative
+    Categorical vs. Continuous
     Cate → nominal (이름) vs. ordinal (순서)
-    Quan → interval (상대) vs. ratio (절대)
+    Cont → interval (음수값 허용) vs. ratio (음수값 허용 X)
     '''
-    @staticmethod
-    def pclass_ordinal(this) -> object:
-        return this
-
     @staticmethod
     def extract_title_from_name(this) -> object:
         # this = self.dataset / train, test : DF
@@ -126,7 +124,7 @@ class TitanicModel:
         labels = ['Unknown', 'Baby', 'Child', 'Teenager', 'Student', 'Young Adult', 'Adult', 'Senior']
         for these in train, test:
             these['Age'] = these['Age'].fillna(-0.5)
-            these['AgeGroup'] = pd.cut(these['Age'], bins, labels=labels, right=False)
+            these['AgeGroup'] = pd.cut(these['Age'], bins=bins, labels=labels, right=False)  # [-1.0, 0.0) -1 < 0.5 <= 0 * [ : 미포함, ) : 포함 *
             these['AgeGroup'] = these['AgeGroup'].map(age_mapping)
         return this
 
@@ -134,12 +132,10 @@ class TitanicModel:
     def fare_ratio(this) -> object:
         train = this.train
         test = this.test
-        labels = ['4th', '3rd', '2nd', '1st']
-        fare_mapping = {'1st': 1, '2nd': 2, '3rd': 3,  '4th': 4}
-        this.test['Fare'] = this.test['Fare'].fillna(1)
+        fare_mapping = {1, 2, 3, 4}
+        test['Fare'] = test['Fare'].fillna(1)
         for these in train, test:
-            these['FareBand'] = pd.qcut(these['Fare'], 4, labels=labels)
-            these['FareBand'] = these['FareBand'].map(fare_mapping)
+            these['FareBand'] = pd.qcut(these['Fare'], 4, labels=fare_mapping)  # (-0.001, 7.91]
         return this
 
     @staticmethod
@@ -149,3 +145,12 @@ class TitanicModel:
         for these in [this.train, this.test]:
             these['Embarked'] = these['Embarked'].map(embarked_mapping)
         return this
+
+    @staticmethod
+    def create_k_fold() -> object:
+        return KFold(n_splits=10, shuffle=True, random_state=0)
+
+    @staticmethod
+    def get_accuracy(this, k_fold):
+        score = cross_val_score(RandomForestClassifier(), this.train, this.label, cv=k_fold, n_jobs=1, scoring='accuracy')
+        return round(np.mean(score) * 100, 2)
